@@ -2,45 +2,47 @@
 <html lang="en">
 
 <head>
-    <title>Displaying a User Location - Bing Maps Samples</title>
+    <title>Bing Maps Embedded Example</title>
 
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="/favicon.ico" />
+    <!-- <link rel="shortcut icon" href="/favicon.ico" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description"
-        content="This example shows how to request the user's location and then display it on the map using a pushpin." />
-    <meta name="keywords" content="Microsoft maps, map, gis, API, SDK, Bing, Bing Maps" />
-    <meta name="author" content="Microsoft Bing Maps" />
-    <meta name="screenshot" content="screenshot.jpg" />
+    <meta name="description" content="Neher Data Systems - Bing Maps Embedded Example" />
+    <meta name="keywords"
+        content="Neher Data Systems, Neher Data, neherdata, nds, Microsoft maps, map, gis, API, SDK, Bing, Bing Maps" />
+    <meta name="author" content="Neher Data Systems" />
+    <link rel="stylesheet" href="style.css">
 
     <script>
         function GetMap() {
-            var map = new Microsoft.Maps.Map('#myMap', {});
-
-            //Request the user's location
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var loc = new Microsoft.Maps.Location(
-                    position.coords.latitude,
-                    position.coords.longitude);
-
-                //Add a pushpin at the user's location.
-                var pin = new Microsoft.Maps.Pushpin(loc);
-                map.entities.push(pin);
-
-                //Center the map on the user's location.
-                map.setView({ center: loc, zoom: 11 });
+            var map = new Microsoft.Maps.Map('#myMap', {
+                mapTypeId: Microsoft.Maps.MapTypeId.road,
+                supportedMapTypes: [Microsoft.Maps.MapTypeId.road, Microsoft.Maps.MapTypeId.grayscale, Microsoft.Maps.MapTypeId.canvasDark],
+                center: new Microsoft.Maps.Location(40.3083382, -74.0697479)
             });
-        }
+
+            var loc = new Microsoft.Maps.Location(40.3083382, -74.0697479);
+            var center = map.getCenter();
+
+            //Add a pushpin at the user's location.
+            var pin = new Microsoft.Maps.Pushpin(center, { color: red });
+            // map.entities.push(loc);
+
+            // add pin to map
+            map.entities.push(pin);
+
+        };
+
     </script>
 
 </head>
 
 <body>
-    <div id="myMap" style="position:relative;width:100%;min-width:290px;height:600px;background-color:gray"></div>
+    <h1>Bing Maps Embedded Example</h1>
+    <h2>Neher Data Systems</h2>
+    <div id="myMap"></div>
 
     <script>
-        // Dynamic load the Bing Maps Key and Script
-        // Get your own Bing Maps key at https://www.microsoft.com/maps
         (async () => {
             let script = document.createElement("script");
             let bingKey = await fetch("https://raw.githubusercontent.com/neherdata/bing-maps.neherdata.com/main/_api/BingMapsKey").then(r => r.text()).then(key => { return key });
@@ -49,5 +51,9 @@
         })();
     </script>
 </body>
+<footer>
+    <p>© 2024 <a href="https://www.microsoft.com/en-us/servicesagreement/">Microsoft</a> and <a
+            href="https://www.neherdata.com/">Neher Data Systems</a></p>
+</footer>
 
 </html>
